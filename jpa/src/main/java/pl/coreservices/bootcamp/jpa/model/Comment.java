@@ -1,17 +1,26 @@
 package pl.coreservices.bootcamp.jpa.model;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
  * Created by BKuczynski on 2016-12-14.
  */
+@Embeddable
+@Table (name = "comments")
 public class Comment {
 
+	@Id
+	@Column(name = "posted_at")
 	private LocalDateTime postedAt;
-
+	@Column(name = "content")
 	private String content;
 
+	@OneToMany (mappedBy = "comment")
+	@PrimaryKeyJoinColumn (name = "post_id")
+	@Column(name = "post")
 	private Post post;
+
 
 	public LocalDateTime getPostedAt() {
 		return postedAt;
