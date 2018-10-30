@@ -6,6 +6,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import pl.coreservices.bootcamp.jpa.model.Post;
+
+import javax.persistence.EntityManager;
 
 @SpringBootApplication
 public class Application {
@@ -17,9 +20,14 @@ public class Application {
 	}
 
 	@Bean
-	public CommandLineRunner demo() {
+	public CommandLineRunner demo(EntityManager entityManager) {
 		return (args)->{
-			// tu załaduj dane do bazy
+
+			entityManager.getTransaction().begin();
+			entityManager.persist(new Post());
+			entityManager.getTransaction().commit();
+
+
 		};
 	}
 }
